@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Robot Control Server</title>
+    <link rel="stylesheet" href='../static/css/style.css' />
+</head>
+<body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/socket.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/keycontrol.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menubuttons.js') }}"></script>
+    <h1 id="controlmodeheader"> Keyboard Control Mode </h1>
+    <div id="controlsrow">
+        <div id="menubuttons">
+            <button class="menubutton" id="onoffbutton" onclick="toggleOnOff()">Turn On</button>
+            <button class="menubutton" id="snapshotbutton" onclick="saveSnapshot()">Save Snapshot</button>
+            <div class="dropdown">
+                <button class="menubutton" id="controlmodebutton">Change Control Mode</button>
+                <div id="modedropdown" class="dropdown-content">
+                    <button value="Keyboard Control" onclick="setRobotControlMode(this.value)">Keyboard Control</button>
+                    <button value="Line Following" onclick="setRobotControlMode(this.value)">Line Following</button>
+                    <button value="Randomly Moving" onclick="setRobotControlMode(this.value)">Randomly Moving</button>
+                </div>
+            </div>
+        </div>
+        <div id="videofeed">
+            <img src="{{ url_for('video_feed') }}">
+            <figcaption id="videofeedcaption"></figcaption>
+        </div>
+    </div>
+    <script>
+        var defaultControlMode = "Keyboard Control";
+        setRobotControlMode(defaultControlMode);
+        turnOffRobot();
+    </script>
+</body>
+</html>
